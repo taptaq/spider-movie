@@ -27,12 +27,13 @@ export default {
 <style scoped>
 #footer {
   width: 100%;
-  height: 50px;
+  height: 48px;
   background: #fff;
   border-top: 2px;
   position: fixed;
   left: 0;
   bottom: 0;
+  padding-top: 2px;
 }
 
 #footer ul {

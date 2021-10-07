@@ -12,9 +12,7 @@
                 v-for="item in hotlist"
                 :key="item.id"
                 @click="handleToCity(item.name, item.code)"
-              >
-                {{ item.name }}
-              </li>
+              >{{ item.name }}</li>
             </ul>
           </div>
 
@@ -27,9 +25,7 @@
                   v-for="itemlist in item.list"
                   :key="itemlist.code"
                   @click="handleToCity(itemlist.name, itemlist.code)"
-                >
-                  {{ itemlist.name }}
-                </li>
+                >{{ itemlist.name }}</li>
               </ul>
             </div>
           </div>
@@ -43,9 +39,7 @@
             v-for="(item, index) in citylist"
             :key="item.index"
             @touchstart="handleToIndex(index)"
-          >
-            {{ item.initial }}
-          </li>
+          >{{ item.initial }}</li>
         </ul>
       </div>
     </div>
@@ -80,7 +74,10 @@ export default {
           this.hotlist = res.data.hotcity[0].lists;
           this.citylist = res.data.city;
           // 本地存储城市数据
-          window.localStorage.setItem("citylist", JSON.stringify(this.citylist));
+          window.localStorage.setItem(
+            "citylist",
+            JSON.stringify(this.citylist)
+          );
           window.localStorage.setItem("hotlist", JSON.stringify(this.hotlist));
         }
       });

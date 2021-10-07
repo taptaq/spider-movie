@@ -1,29 +1,22 @@
 <template>
   <div>
     <el-table :data="nowTableData" border style="width: 100%">
-      <el-table-column prop="date" label="注册日期"> </el-table-column>
+      <el-table-column prop="date" label="注册日期"></el-table-column>
       <el-table-column prop="userHead" label="用户头像">
         <template #default="scope">
-          <img class="userHead" :src="scope.row.userHead" alt="" />
+          <img class="userHead" :src="scope.row.userHead" alt />
         </template>
       </el-table-column>
-      <el-table-column prop="username" label="用户姓名"> </el-table-column>
-      <el-table-column prop="email" label="用户邮箱"> </el-table-column>
+      <el-table-column prop="username" label="用户姓名"></el-table-column>
+      <el-table-column prop="email" label="用户邮箱"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
           <el-button
             size="small"
             @click="handleToFreeze(scope.$index, scope.row)"
             :type="scope.row.isFreeze === true ? 'danger' : ''"
-          >
-            {{ scope.row.isFreeze === true ? "已冻结" : "未冻结" }}
-          </el-button>
-          <el-button
-            size="small"
-            type="danger"
-            @click="handleToDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
+          >{{ scope.row.isFreeze === true ? "已冻结" : "未冻结" }}</el-button>
+          <el-button size="small" type="danger" @click="handleToDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -35,8 +28,7 @@
       :page-size="pageSize"
       :current-page.sync="currentPage"
       :total="tableData.length"
-    >
-    </el-pagination>
+    ></el-pagination>
   </div>
 </template>
 
@@ -47,7 +39,7 @@ export default {
     return {
       tableData: [],
       currentPage: 1,
-      pageSize: 3,
+      pageSize: 5,
     };
   },
   mounted() {
@@ -73,7 +65,10 @@ export default {
       //row表示这一行的所有数据
       // console.log(index, row);
       this.$axios
-        .post("/api2/admin/updateFreeze", { email: row.email, isFreeze: !row.isFreeze })
+        .post("/api2/admin/updateFreeze", {
+          email: row.email,
+          isFreeze: !row.isFreeze,
+        })
         .then((res) => {
           var status = res.data.status;
           if (status === 0) {

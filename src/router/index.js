@@ -17,6 +17,16 @@ const routes = [
     path: '/adminLogin',
     component: () => import('@/views/admin/login.vue')
   },
+  // 选座页面
+  {
+    path: '/selectSeat',
+    component: () => import('@/views/movie/selectSeat.vue'),
+  },
+  // 支付页面
+  {
+    path: '/pay',
+    component: () => import('@/views/movie/pay.vue'),
+  },
   {
     path: '/:catchAll(.*)', //路由都不匹配的情况下
     redirect: '/movie' //重定向到电影页面的路由

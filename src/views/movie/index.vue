@@ -9,17 +9,18 @@
           <i class="iconfont icon-xiajiantou"></i>
         </router-link>
         <div class="hot_switch">
-          <router-link tag="div" to="/movie/showing" class="hot_item"
-            >正在热映</router-link
-          >
+          <router-link tag="div" to="/movie/showing" class="hot_item">电影列表</router-link>
+          <!--
           <router-link tag="div" to="/movie/coming" class="hot_item"
             >即将上映</router-link
           >
+          -->
         </div>
         <router-link tag="div" to="/movie/search" class="search_entry">
           <i class="iconfont icon-sousuo"></i>
         </router-link>
       </div>
+
       <!-- 正在热映和即将上映的电影展示页面 -->
       <keep-alive>
         <router-view />

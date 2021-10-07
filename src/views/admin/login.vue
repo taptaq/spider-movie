@@ -2,7 +2,7 @@
   <div class="admin-sys">
     <div id="content">
       <div class="container">
-        <h3 class="title">IMOVIE电影系统管理后台</h3>
+        <h3 class="title">SPIDERMOVIE电影系统管理后台</h3>
         <div id="login">
           <div id="login_content">
             <span>

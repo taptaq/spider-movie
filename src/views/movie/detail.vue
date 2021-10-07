@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="detailcontainer slide-enter-active"
-    :style="{ background: backgroundColor }"
-  >
+  <div class="detailContainer slide-enter-active" :style="{ background: backgroundColor }">
     <Header title="影片详情">
       <i class="iconfont icon-zuojiantou arrow_back" @touchstart="handleToBack"></i>
     </Header>
@@ -14,14 +11,16 @@
           <div class="detail_list">
             <div class="detail_list_content">
               <div class="detail_list_img">
-                <img :src="$filters.setWH(detailInfo.img, '128.180')" alt="" />
+                <img :src="$filters.setWH(detailInfo.moviePoster, '128.180')" alt />
               </div>
               <div class="detail_list_info">
-                <h2>{{ detailInfo.nm }}</h2>
-                <p>{{ detailInfo.enm }}</p>
-                <p>{{ detailInfo.cat }}</p>
-                <p>{{ detailInfo.src }} / {{ detailInfo.episodeDur }}分钟</p>
-                <p>{{ detailInfo.pubDesc }}</p>
+                <h2>{{ detailInfo.movieName }}</h2>
+                <p>{{ detailInfo.movieEnName }}</p>
+                <p>
+                  <span v-for="item in detailInfo.movieType" :key="item.id">{{item}}&nbsp;</span>
+                </p>
+                <p>{{ detailInfo.area }} / {{ detailInfo.dur }}分钟</p>
+                <p>{{ detailInfo.date }} 在 {{ detailInfo.area }} 上映</p>
               </div>
             </div>
           </div>
@@ -29,21 +28,19 @@
           <!--电影简介-->
           <div class="detail_intro">
             <h3>影片简介</h3>
-            <p>
-              {{ detailInfo.dra }}
-            </p>
+            <p>{{ detailInfo.dra }}</p>
           </div>
 
           <!--演职人员-->
           <div class="detail_player swiper-container" ref="detail_player">
             <p class="star">演职人员</p>
             <ul class="swiper-wrapper">
-              <li class="swiper-slide" v-for="item in detailInfo.star" :key="item.id">
+              <li class="swiper-slide" v-for="item in detailInfo.actor" :key="item.id">
                 <div>
-                  <img :src="item.img" alt="" />
+                  <img :src="item.img" alt />
                 </div>
                 <p>{{ item.name }}</p>
-                <p>饰：{{ item.play }}</p>
+                <p>饰：{{ item.role }}</p>
               </li>
             </ul>
           </div>
@@ -75,29 +72,32 @@ export default {
     },
   },
   mounted() {
-    this.$axios.get("/api/detail_" + this.movieId + ".json").then((res) => {
-      var msg = res.data.msg;
-      if (msg === "ok") {
-        this.detailInfo = res.data.detailMovie;
-        this.backgroundColor = this.detailInfo.backgroundColor;
-        // console.log(this.detailInfo.star);
-        this.isloading = false;
-        this.$nextTick(() => {
-          new Swiper(this.$refs.detail_player, {
-            slidesPerView: "auto", //设置slider容器能够同时显示的slides数量为自动
-            freeMode: true, //自由拖放
-            freeModeSticky: true, //自由对齐
-            direction: "horizontal", // 水平切换选项
+    this.$axios
+      .get(`/api2/movies/getMovie?movieId=${this.movieId}`)
+      .then((res) => {
+        let detailMsg = res.data.data.detailMsg[0];
+        let status = res.data.status;
+        if (status === 0) {
+          this.detailInfo = detailMsg;
+          this.backgroundColor = this.detailInfo.background;
+          console.log(detailMsg);
+          this.isloading = false;
+          this.$nextTick(() => {
+            new Swiper(this.$refs.detail_player, {
+              slidesPerView: "auto", //设置slider容器能够同时显示的slides数量为自动
+              freeMode: true, //自由拖放
+              freeModeSticky: true, //自由对齐
+              direction: "horizontal", // 水平切换选项
+            });
           });
-        });
-      }
-    });
+        }
+      });
   },
 };
 </script>
 
 <style>
-.detailcontainer {
+.detailContainer {
   position: absolute;
   left: 0;
   top: 0;

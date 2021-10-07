@@ -12,8 +12,6 @@ module.exports = {
                 target: 'http://localhost:8082',
                 changeOrigin: true //是否要改变代理
             },
-
-
         },
         // public: '192.168.43.208:8081',
     },

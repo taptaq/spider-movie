@@ -7,7 +7,7 @@
       </el-header>
       <el-container>
         <el-aside width="200px">
-          <el-menu default-active="2" class="el-menu-vertical-demo">
+          <el-menu default-active="1" class="el-menu-vertical-demo">
             <el-menu-item index="1">
               <i class="el-icon-menu"></i>
               <router-link to="/admin/user" slot="title" tag="span">用户管理</router-link>
@@ -16,10 +16,12 @@
               <i class="el-icon-document"></i>
               <router-link to="/admin/movie" slot="title" tag="span">电影管理</router-link>
             </el-menu-item>
+            <!--
             <el-menu-item index="3">
               <i class="el-icon-setting"></i>
               <router-link to="/admin/cinema" slot="title" tag="span">影院管理</router-link>
             </el-menu-item>
+            -->
             <el-menu-item index="4">
               <i class="el-icon-s-marketing"></i>
               <router-link to="/admin/hotData" slot="title" tag="span">热度数据管理</router-link>
@@ -40,17 +42,17 @@ import axios from "axios";
 export default {
   name: "admin",
   // 进入此路由前
-  beforeRouteEnter(to, from, next) {
-    axios.get("/api2/admin").then((res) => {
-      var status = res.data.status;
-      if (status === 0) {
-        //若为管理员则可进入管理页面
-        next();
-      } else {
-        next("/mine/login"); //反之跳转到登录页面
-      }
-    });
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   axios.get("/api2/admin").then((res) => {
+  //     var status = res.data.status;
+  //     if (status === 0) {
+  //       //若为管理员则可进入管理页面
+  //       next();
+  //     } else {
+  //       next("/mine/login"); //反之跳转到登录页面
+  //     }
+  //   });
+  // },
 };
 </script>
 
