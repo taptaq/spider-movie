@@ -10,7 +10,7 @@
     <div class="upLoad">
       <input type="file" name="file" @change="handleToUpload" class="file" />
       <p>当前头像：</p>
-      <img class="userHead" :src="$store.state.user.userHead" alt="" />
+      <img class="userHead" :src="$store.state.user.userHead" alt />
     </div>
 
     <button @touchstart="handleToLogout" class="logout">退出</button>
@@ -34,6 +34,10 @@ export default {
             isAdmin: false,
             userHead: "",
           });
+          this.$store.commit("user/changeLoginStatus", {
+            isLogin: false,
+          });
+          localStorage.setItem("isLogin", false);
           //退出成功则跳转到登录页面
           this.$router.push("/mine/login");
         }
@@ -48,30 +52,32 @@ export default {
         "Content-Type": "multipart/form-data",
       };
 
-      this.$axios.post("/api2/users/uploadUserHead", param, config).then((res) => {
-        var status = res.data.status;
-        var that = this;
-        if (status === 0) {
-          messageBox({
-            title: "信息",
-            content: "上传头像成功",
-            ok: "确定",
-            handleOk() {
-              that.$store.commit("user/USER_NAME", {
-                name: that.$store.state.user.name,
-                isAdmin: that.$store.state.user.isAdmin,
-                userHead: res.data.data.userHead + "?" + Math.random(), //清除缓存
-              });
-            },
-          });
-        } else {
-          messageBox({
-            title: "信息",
-            content: "上传头像失败",
-            ok: "确定",
-          });
-        }
-      });
+      this.$axios
+        .post("/api2/users/uploadUserHead", param, config)
+        .then((res) => {
+          var status = res.data.status;
+          var that = this;
+          if (status === 0) {
+            messageBox({
+              title: "信息",
+              content: "上传头像成功",
+              ok: "确定",
+              handleOk() {
+                that.$store.commit("user/USER_NAME", {
+                  name: that.$store.state.user.name,
+                  isAdmin: that.$store.state.user.isAdmin,
+                  userHead: res.data.data.userHead + "?" + Math.random(), //清除缓存
+                });
+              },
+            });
+          } else {
+            messageBox({
+              title: "信息",
+              content: "上传头像失败",
+              ok: "确定",
+            });
+          }
+        });
     },
   },
 

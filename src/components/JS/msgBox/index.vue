@@ -1,7 +1,11 @@
 <template v-slot="(title, content)">
   <div class="msgBox">
-    <h2><slot name="title" /></h2>
-    <p><slot name="content" /></p>
+    <h2>
+      <slot name="title" />
+    </h2>
+    <p>
+      <slot name="content" />
+    </p>
     <div class="menu">
       <div v-if="cancel" @click="handleToCancel">{{ cancel }}</div>
       <div v-if="ok" @click="handleToOk">{{ ok }}</div>

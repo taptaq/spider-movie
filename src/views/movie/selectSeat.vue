@@ -77,10 +77,18 @@
 
     <div class="footer">
       <!--购买按钮-->
-      <button class="buy" :class="!isLock?'select':'no-select'" @click="goto" :disabled="isLock">
+      <button
+        class="buy"
+        :class="!isLock?'select':'no-select'"
+        @click="goto"
+        :disabled="isLock"
+        v-if="$store.state.user.isLogin"
+      >
         {{isLock===true?'请先选座':'去付款'}}
         <span v-show="!isLock">&nbsp;{{sum}}元</span>
       </button>
+
+      <button class="buy select" @click="goto" v-if="!$store.state.user.isLogin">未登录？请先登录-></button>
     </div>
   </div>
 </template>
@@ -146,31 +154,25 @@ export default {
     handleToBack() {
       this.$router.back(); //返回前一页(前一级路由)
     },
-    goto() {
-      //登陆页面
-      // if (sessionStorage.getItem("islog") == "true") {
-      //根据islog的值true或false判断是否登陆
 
-      let sum = this.sum; //价格
-      let seats = JSON.stringify(this.selected); //座位
-      this.$store.commit("movie/changeCurSelectSeats", {
-        curSelectSeats: seats,
-      });
-      this.$store.commit("movie/changeSum", {
-        sum: sum,
-      });
-      localStorage.setItem("curSelectSeats", seats);
-      localStorage.setItem("sum", sum);
-      this.$router.push("/pay");
-      // this.$router.push({
-      //   //跳转支付页面，传递一个总的价格的参数
-      //   path: "/pay",
-      //   params: { user: v },
-      // });
-      // } else {
-      //没有登陆跳转登陆页面
-      //   this.$router.push("log");
-      // }
+    goto() {
+      //根据isLogin的值true或false判断是否登陆
+      if (this.$store.state.user.isLogin === "true") {
+        let sum = this.sum; //价格
+        let seats = JSON.stringify(this.selected); //座位
+        this.$store.commit("movie/changeCurSelectSeats", {
+          curSelectSeats: seats,
+        });
+        this.$store.commit("movie/changeSum", {
+          sum: sum,
+        });
+        localStorage.setItem("curSelectSeats", seats);
+        localStorage.setItem("sum", sum);
+        this.$router.push("/pay");
+      } else {
+        // 没有则登陆跳转登陆页面;
+        this.$router.push("/mine/login");
+      }
     },
 
     // conman(num) {
@@ -411,7 +413,7 @@ export default {
 
 .footer .buy.select {
   width: 100%;
-  height: 36px;
+  height: 38px;
   background: #946ddd;
   border-radius: 20px;
   border: none;
@@ -422,7 +424,7 @@ export default {
 
 .footer .buy.no-select {
   width: 100%;
-  height: 36px;
+  height: 38px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   border: none;

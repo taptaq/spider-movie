@@ -30,6 +30,7 @@ app.use(ElementPlus);
 
 
 
+
 import scroller from '@/components/scroller';
 app.component('scroller', scroller); //全局注册scroller组件
 

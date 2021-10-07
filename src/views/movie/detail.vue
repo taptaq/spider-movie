@@ -192,6 +192,10 @@ export default {
   font-weight: normal;
   line-height: 40px;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
 }
 
 .detail_list .detail_list_info p {

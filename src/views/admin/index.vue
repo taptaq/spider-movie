@@ -2,8 +2,10 @@
   <div class="common-layout">
     <el-container>
       <el-header>
-        <h2>蜘蛛网管理后台</h2>欢迎用户：
+        <h2>蜘蛛电影管理后台</h2>
+        <!--欢迎用户：
         <span>{{ $store.state.user.name }}</span>
+        -->
       </el-header>
       <el-container>
         <el-aside width="200px">
@@ -22,9 +24,9 @@
               <router-link to="/admin/cinema" slot="title" tag="span">影院管理</router-link>
             </el-menu-item>
             -->
-            <el-menu-item index="4">
+            <el-menu-item index="3">
               <i class="el-icon-s-marketing"></i>
-              <router-link to="/admin/hotData" slot="title" tag="span">热度数据管理</router-link>
+              <router-link to="/admin/hotData" slot="title" tag="span">数据管理</router-link>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -42,17 +44,17 @@ import axios from "axios";
 export default {
   name: "admin",
   // 进入此路由前
-  // beforeRouteEnter(to, from, next) {
-  //   axios.get("/api2/admin").then((res) => {
-  //     var status = res.data.status;
-  //     if (status === 0) {
-  //       //若为管理员则可进入管理页面
-  //       next();
-  //     } else {
-  //       next("/mine/login"); //反之跳转到登录页面
-  //     }
-  //   });
-  // },
+  beforeRouteEnter(to, from, next) {
+    axios.get("/api2/admin").then((res) => {
+      var status = res.data.status;
+      if (status === 0) {
+        //若为管理员则可进入管理页面
+        next();
+      } else {
+        next("/mine/login"); //反之跳转到登录页面
+      }
+    });
+  },
 };
 </script>
 

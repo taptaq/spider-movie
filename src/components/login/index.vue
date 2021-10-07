@@ -56,6 +56,11 @@ export default {
                 that.$router.push("/mine/center"); //登陆成功后跳转到个人中心
               },
             });
+
+            this.$store.commit("user/changeLoginStatus", {
+              isLogin: true,
+            });
+            localStorage.setItem("isLogin", true);
           } else {
             messageBox({
               title: "登录",
@@ -66,6 +71,11 @@ export default {
                   "/api2/users/verifyImg?" + Math.random(); //登录失败则更新图形验证码
               },
             });
+
+            this.$store.commit("user/changeLoginStatus", {
+              isLogin: false,
+            });
+            localStorage.setItem("isLogin", false);
           }
         });
     },
