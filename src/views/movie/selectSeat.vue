@@ -11,7 +11,7 @@
         <p>影院：SFC上影影城</p>
         <p>票价：40元</p>
         <p>电影名字：{{ $store.state.movie.curMovieName}}</p>
-        <p>场次：今天 10月6 16:00</p>
+        <p>场次：今天 {{new Date().getMonth()+1+'月'+new Date().getDate()+'日 '+(new Date().getHours()+1)+':30'}}</p>
       </div>
 
       <!--座位解释布局-->
@@ -142,8 +142,16 @@ export default {
     this.$axios.get("/api/seatData.json").then((res) => {
       if (res.status == 200) {
         //请求成功
-        // console.log(res.data.data);
+        console.log(res.data.data[0][2]);
         this.ticket = res.data.data;
+
+        // 生成随机的售卖座位
+        let randomCount = Math.floor(Math.random() * this.ticket.length + 5);
+        for (let i = 0; i < randomCount; i++) {
+          let randomNum1 = Math.floor(Math.random() * this.ticket.length);
+          let randomNum2 = Math.floor(Math.random() * this.ticket[0].length);
+          this.ticket[randomNum1][randomNum2].state = 2;
+        }
       } else {
         console.log("请求的数据不见了，去看一下你的json文件");
       }
@@ -245,10 +253,8 @@ export default {
         //v.state为1证明还有座位
         v.state = 0; //当你选了之后让他变成0
       } else if (v.state == 2) {
-        //等于3证明已经卖出，不能选择
-        alert("座位不可以选");
-      } else {
-        console.log("22");
+        //等于2证明已经卖出，不能选择
+        alert("座位已售卖");
       }
     },
 

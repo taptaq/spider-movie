@@ -29,7 +29,10 @@
             </P>
             <P>{{ item.date }}</P>
           </div>
-          <div class="btn_mall" @click="toSelect(item.movieId,item.movieName)">购票</div>
+          <div
+            class="btn_mall"
+            @click="toSelect(item.movieId,item.movieName)"
+          >{{new Date(item.date).getTime() > new Date().getTime()?'预售':'购票'}}</div>
         </li>
       </ul>
     </scroller>
@@ -67,12 +70,14 @@ export default {
     handleToDetail(movieId) {
       this.$router.push("/movie/detail/1/" + movieId);
     },
+
     handleToScroll(pos) {
       if (pos.y > 30) {
         //当向上拖拽的距离大于30才触发
         this.pullDownMsg = "正在加载中...";
       }
     },
+
     handleToTouchEnd(pos) {
       if (pos.y > 50) {
         //当向上拖拽的距离大于30才触发
@@ -100,6 +105,7 @@ export default {
       this.$router.push("/selectSeat");
     },
 
+    // 按热度排序
     sortByHot(e) {
       this.movieList = this.movieList.sort((a, b) => {
         return b.hot - a.hot;
@@ -214,13 +220,13 @@ export default {
 
 .movie_body .btn_mall {
   width: 47px;
-  height: 27px;
-  line-height: 27px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
   background: #946ddd;
   color: #fff;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 

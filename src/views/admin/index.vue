@@ -26,7 +26,7 @@
             -->
             <el-menu-item index="3">
               <i class="el-icon-s-marketing"></i>
-              <router-link to="/admin/hotData" slot="title" tag="span">数据管理</router-link>
+              <router-link to="/admin/hotData" slot="title" tag="span">数据分析</router-link>
             </el-menu-item>
           </el-menu>
         </el-aside>
