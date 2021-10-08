@@ -47,6 +47,12 @@ export default {
       var status = res.data.status;
       if (status === 0) {
         this.tableData = res.data.data.userList;
+        this.tableData.map((item) => {
+          let date = new Date(item.date);
+          item.date = `${date.getFullYear()}-${
+            date.getMonth() + 1
+          }-${date.getDate()}`;
+        });
       }
     });
   },

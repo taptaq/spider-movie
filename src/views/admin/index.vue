@@ -45,6 +45,7 @@ export default {
   name: "admin",
   // 进入此路由前
   beforeRouteEnter(to, from, next) {
+    let that = this;
     axios.get("/api2/admin").then((res) => {
       var status = res.data.status;
       if (status === 0) {

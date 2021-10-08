@@ -40,7 +40,10 @@
                   <img :src="item.img" alt />
                 </div>
                 <p>{{ item.name }}</p>
-                <p>饰：{{ item.role }}</p>
+                <p>
+                  <span v-if="item.role">饰：</span>
+                  {{ item.role }}
+                </p>
               </li>
             </ul>
           </div>
@@ -135,7 +138,7 @@ export default {
 
 .contentdetail {
   margin-top: 0;
-  height: auto;
+  height: 112vh;
 }
 
 .detail_list {

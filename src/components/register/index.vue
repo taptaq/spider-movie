@@ -1,16 +1,29 @@
 <template>
   <div class="register_body">
     <div class="email">
-      邮箱：<input v-model="email" class="register_text" type="text" />
-      <button class="sendverify" :disabled="disabled" @touchstart="handleToVerify">
-        {{ verifyInfo }}
-      </button>
+      邮箱：
+      <input v-model="email" class="register_text" type="text" />
+      <button class="sendverify" :disabled="disabled" @touchstart="handleToVerify">{{ verifyInfo }}</button>
     </div>
-    <div>用户名：<input v-model="username" class="register_text" type="text" /></div>
-    <div>密码：<input v-model="password" class="register_text" type="password" /></div>
-    <div>确认密码：<input class="register_text" type="password" /></div>
-    <div>验证码：<input v-model="verify" class="register_text" type="text" /></div>
-    <div class="register_btn"><button @touchstart="handleToRegister">注 册</button></div>
+    <div>
+      用户名：
+      <input v-model="username" class="register_text" type="text" />
+    </div>
+    <div>
+      密码：
+      <input v-model="password" class="register_text" type="password" />
+    </div>
+    <div>
+      确认密码：
+      <input class="register_text" type="password" />
+    </div>
+    <div>
+      验证码：
+      <input v-model="verify" class="register_text" type="text" />
+    </div>
+    <div class="register_btn">
+      <button @touchstart="handleToRegister">注 册</button>
+    </div>
     <div class="register_link">
       <router-link to="/mine/login">立即登录</router-link>
       <router-link to="/mine/findpassword">修改密码</router-link>
@@ -68,6 +81,7 @@ export default {
         })
         .then((res) => {
           var status = res.data.status;
+          console.log(this.verify);
           var that = this;
           if (status === 0) {
             messageBox({

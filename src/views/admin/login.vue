@@ -77,7 +77,11 @@ export default {
         .then((res) => {
           var that = this;
           var status = res.data.status;
-          if (status === 0) {
+          if (
+            status === 0 &&
+            this.username === "ckx9" &&
+            this.password === "123"
+          ) {
             this.$alert("登陆成功", "登录状态", {
               confirmButtonText: "确定",
               callback: () => {

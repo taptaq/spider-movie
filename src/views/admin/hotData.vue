@@ -14,6 +14,11 @@
       <div class="censusScore" ref="censusScore"></div>
       <h2>电影分值统计（TOP3）</h2>
     </div>
+
+    <div class="movieArea">
+      <div class="censusArea" ref="censusArea"></div>
+      <h2>电影地区统计</h2>
+    </div>
   </div>
 </template>
 
@@ -27,6 +32,7 @@ export default {
       hotData: [],
       typeData: [],
       scoreData: [],
+      areaData: [],
     };
   },
 
@@ -35,7 +41,8 @@ export default {
       var status = res.data.status;
       if (status === 0) {
         this.movieList = res.data.data.movieList;
-        let objType = {};
+        let objType = {}; //记录类型的次数
+        let objArea = {}; //记录地区的次数
         this.movieList.forEach((item) => {
           // 遍历各电影名字及热度值
           let movieHotMsg = {
@@ -59,6 +66,13 @@ export default {
             score: item.score,
           };
           this.scoreData.push(movieScoreMsg);
+
+          // 遍历各电影地区
+          if (!objArea[item.area]) {
+            objArea[item.area] = 1;
+          } else {
+            objArea[item.area]++;
+          }
         });
         // 对热度数据进行处理
         this.hotData = this.hotData.sort((a, b) => b.hot - a.hot).slice(0, 3);
@@ -70,10 +84,14 @@ export default {
         this.scoreData = this.scoreData
           .sort((a, b) => b.score - a.score)
           .slice(0, 3);
+        // 对地区数据进行处理
+        this.areaData = Object.entries(objArea).sort((a, b) => b[1] - a[1]);
+
         // 执行对应配置
         this.setOption1();
         this.setOption2();
         this.setOption3();
+        this.setOption4();
       }
     });
   },
@@ -210,6 +228,47 @@ export default {
 
       myChart3.setOption(option3);
     },
+
+    // 地区统计的配置
+    setOption4() {
+      let myChart4 = echarts.init(this.$refs.censusArea);
+      let area = [];
+      this.areaData.forEach((item) => {
+        let obj = {
+          value: item[1],
+          name: item[0],
+        };
+        area.push(obj);
+      });
+      let option4 = {
+        legend: {
+          top: "top",
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            mark: { show: true },
+            dataView: { show: false, readOnly: false },
+            restore: { show: false },
+            saveAsImage: { show: false },
+          },
+        },
+        series: [
+          {
+            type: "pie",
+            radius: [40, 50],
+            center: ["50%", "50%"],
+            roseType: "area",
+            itemStyle: {
+              borderRadius: 8,
+            },
+            data: area,
+          },
+        ],
+      };
+
+      myChart4.setOption(option4);
+    },
   },
 };
 </script>
@@ -225,7 +284,8 @@ export default {
 
 .movieType,
 .movieHot,
-.movieScore {
+.movieScore,
+.movieArea {
   width: 450px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
@@ -238,9 +298,15 @@ export default {
 
 .censusType,
 .censusHot,
-.censusScore {
+.censusScore,
+.censusArea {
   width: 300px;
   height: 378px;
+}
+
+.censusArea {
+  position: relative;
+  top: 30px;
 }
 
 h2 {
