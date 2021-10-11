@@ -1,15 +1,18 @@
 <template>
   <div class="findpassword_body">
     <div class="email">
-      邮箱：<input v-model="email" class="findpassword_text" type="text" />
-      <button class="sendverify" :disabled="disabled" @touchstart="handleToVerify">
-        {{ verifyInfo }}
-      </button>
+      邮箱：
+      <input v-model="email" class="findpassword_text" type="text" />
+      <button class="sendverify" :disabled="disabled" @touchstart="handleToVerify">{{ verifyInfo }}</button>
     </div>
     <div>
-      新密码：<input v-model="password" class="findpassword_text" type="password" />
+      新密码：
+      <input v-model="password" class="findpassword_text" type="password" />
     </div>
-    <div>验证码：<input v-model="verify" class="findpassword_text" type="text" /></div>
+    <div>
+      验证码：
+      <input v-model="verify" class="findpassword_text" type="text" />
+    </div>
     <div class="findpassword_btn">
       <button @touchstart="handleToPassword">确认修改</button>
     </div>
@@ -135,6 +138,11 @@ export default {
   right: 7px;
   top: 27px;
   padding: 5px;
+  background: #946ddd;
+  border-radius: 3px;
+  border: none;
+  display: block;
+  color: #fff;
 }
 
 .findpassword_body .findpassword_btn {

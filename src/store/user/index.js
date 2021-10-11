@@ -2,7 +2,7 @@ const state = {
     name: window.localStorage.getItem('username') || '',
     isAdmin: window.localStorage.getItem('isAdmin') || false,
     userHead: '',
-    isLogin: window.localStorage.getItem('isLogin') || false,
+    isLogin: Boolean(window.localStorage.getItem('isLogin')) || false,
 };
 
 const actions = {

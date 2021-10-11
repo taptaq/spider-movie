@@ -113,7 +113,7 @@ export default {
     return {
       tableData: [],
       currentPage: 1,
-      pageSize: 3,
+      pageSize: 2,
       editForm: false,
       movieForm: {
         movieId: "",
@@ -340,7 +340,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 100%;
-  height: 120%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
 

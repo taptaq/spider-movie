@@ -165,7 +165,7 @@ export default {
 
     goto() {
       //根据isLogin的值true或false判断是否登陆
-      if (this.$store.state.user.isLogin === "true") {
+      if (this.$store.state.user.isLogin === true) {
         let sum = this.sum; //价格
         let seats = JSON.stringify(this.selected); //座位
         this.$store.commit("movie/changeCurSelectSeats", {

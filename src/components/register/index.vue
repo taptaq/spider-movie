@@ -152,6 +152,11 @@ export default {
   right: 7px;
   top: 27px;
   padding: 5px;
+  background: #946ddd;
+  border-radius: 3px;
+  border: none;
+  display: block;
+  color: #fff;
 }
 
 .register_body .register_btn {
